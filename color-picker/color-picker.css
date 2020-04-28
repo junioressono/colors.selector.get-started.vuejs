@@ -1,0 +1,157 @@
+#cpApp {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 10px;
+    grid-auto-rows: minmax(100px, auto);
+}
+
+#cpApp>div,
+#cpApp>form {
+    padding: 10px;
+}
+
+/*************************************************************/
+
+#cpForm {
+    grid-column: 1 / 2;
+    grid-row: 1;
+    background-color: #cccccc;
+    border-radius: 8px;
+    max-width: 500px;
+}
+
+#cpForm .cpFormTitle{
+    margin-top: 4px;
+}
+
+#cpForm .cpForm-group{
+    /*max-width: 300px;*/
+    width: 100%;
+}
+
+#cpForm .cpForm-group input[type='text'],
+#cpForm .cpForm-group input[type='number']{
+    width: 100%;
+}
+#cpApp input,
+#cpApp button{
+    padding: 6px;
+    box-sizing: border-box;
+    margin: 3px 0;
+}
+
+#cpForm .cpFormButtons-group{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: end;
+}
+
+#cpForm .cpFormButtons-group button{
+    flex: auto;
+    margin-left: 10px;
+    /*order: 2;*/
+}
+
+#cpForm .cpFormButtons-group button:last-child{
+    /*order: 1;*/
+    margin-left: 0;
+}
+
+/*************************************************************/
+
+#cpViewer {
+    background-color: #eeeeee;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#cpViewer h2,
+#cpViewer h4{
+    margin: 6px 0;
+}
+
+#cpViewerColor {
+    width: 50%;
+    height: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+}
+
+#cpViewerColor input[type='button']{
+    margin: 6px;
+    border-radius: 4px;
+}
+
+/*************************************************************/
+
+#cpList {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    /*background-color: #dddddd;*/
+    border: 2px solid #cccccc;
+    border-radius: 8px;
+}
+.cpListTitle {
+    font-size: 0.8rem;
+    text-align: left;
+}
+#cpList>ul {
+    width: 100%;
+    display: flex;
+    list-style: none;
+    padding: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+}
+#cpList>ul>li {
+    display: flex;
+    flex-direction: column;
+    min-width: 50px;
+    min-height: 70px;
+    list-style: none;
+    max-width: 100px;
+    max-height: 120px;
+    margin: 2px;
+    cursor: pointer;
+
+}
+#cpList>ul>li:hover .cpListColorPreview {
+    border: 1px solid #000000;
+}
+.onColorItemClick {
+    border: 2px solid #000000;
+}
+.onColorItemClick:after,
+.backdrop {
+    content: '';
+    background-color: transparent;
+    display: none;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+#cpList>ul>li .cpListColorPreview{
+    flex: auto;
+    min-height: 50px;
+}
+.cpListColorCode {
+    font-size: .5rem;
+    font-style: italic;
+    font-weight: 600;
+    margin: 4px 0;
+}
+#cpList .cpFormButtons-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    align-items: center;
+}

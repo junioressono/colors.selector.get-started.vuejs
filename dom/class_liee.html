@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DOM - Classe liée</title>
+
+    <script type="application/ecmascript" src="../node_modules/vue/dist/vue.min.js"></script>
+    <style type="text/css">
+        .shape {
+            width: 200px;
+            height: 200px;
+            display: block;
+        }
+        .shape.square {
+            border: solid 4px;
+        }
+        .shape.circle {
+            border-radius: 100px;
+        }
+        .green {
+            background-color: green;
+        }
+        .yellow {
+            background-color: yellow;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="linkedClass">
+        <div class="shape" v-bind:class="[shape, validity?color]"></div>
+    </div>
+
+    <script type="application/ecmascript">
+        new Vue({
+            el: '#linkedClass',
+            data: {
+                validity: true,
+                shape: 'circle',
+                color: {
+                    green: true
+                }
+            },
+
+        })
+    </script>
+</body>
+</html>

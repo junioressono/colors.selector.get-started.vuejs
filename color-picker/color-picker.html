@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Color-Picker</title>
+
+    <link rel="stylesheet" href="./color-picker.css">
+</head>
+<body>
+    <div class="backdrop"></div>
+    <div id="cpApp">
+        <form id="cpForm" @submit="cpAddColor()">
+            <h2 class="cpFormTitle">{{ cpFormTitleValue }}</h2>
+            <div class="cpForm-group">
+                <input type="radio" id="cpRGBColorType" name="cpColorType" :value="typeRGB" :checked="colorTypeIsRGB" v-model="color.type"><label for="cpRGBColorType">RGBA </label>
+                <input type="radio" id="cpHexColorType" name="cpColorType" :value="typeHex" v-model="color.type" @select="cpConvertForPreview()"><label for="cpHexColorType">HexA</label>
+            </div>
+            <hr>
+            <span v-if="!colorTypeIsHex && !colorTypeIsRGB">Select the type of your code color !</span>
+            <div class="cpForm-group" v-if="colorTypeIsHex"><input id="hex" name="hex" type="text" v-model="color.hexa" placeholder="#______ - __"></div>
+            <template v-else-if="colorTypeIsRGB">
+                <div class="cpForm-group"><input id="red" name="red" type="number" min="0" max="255" list="rgbAuthorizedValues" v-model="color.red" placeholder="Red"></div>
+                <div class="cpForm-group"><input id="green" name="green" type="text" v-model="color.green" placeholder="Green"></div>
+                <div class="cpForm-group"><input id="blue" name="blue" type="text" v-model="color.blue" placeholder="Blue"></div>
+                <div class="cpForm-group"><input id="opacity" name="opacity" type="number" min="0.01" step="0.01" max="1" v-model="color.opacity" placeholder="Opacity"></div>
+            </template>
+
+            <input id="index" name="index" type="hidden" v-model="color.savedAt">
+            <hr>
+            <div class="cpFormButtons-group">
+                <button id="cpFormAddButton" name="cpFormAddButton" @click.prevent="cpAddColor()" :disabled="!isCcurrentColorValid">{{cpFormAddButtonValue}}</button>
+                <button id="cpFormCancelButton" name="cpFormCancelButton" @click.prevent="cpCancelColor()">Cancel</button>
+            </div>
+            <hr size="2">
+            <datalist id="rgbAuthorizedValues">
+                <option v-for="value in 256" :value="value-1">
+            </datalist>
+        </form>
+        <div id="cpViewer">
+            <h2>Color Preview</h2>
+            <div id="cpViewerColor" :style="{backgroundColor: color.rgba}" >
+                <template v-if="thereIsSelectedColor">
+                    <input name="cpViewerDeleteButton" type="button" value="delete" @click="cpDeleteSelectedColor()">
+                    <input name="cpViewerArchiveButton" type="button" value="archive" @click="cpArchiveColor()">
+                </template>
+                <span v-else>Just pick a color !</span>
+            </div>
+            <h4>{{color.rgba}} | {{color.hexa}}</h4>
+            <h4>Saved the {{(new Date(1588017562306).toDateString())}} at {{savedTime}} {{savedMoment}}</h4>
+        </div>
+        <div id="cpList">
+            <template v-if="thereIsAtLeastOneColor">
+
+                <div class="cpFormButtons-group">
+                    <select name="cpFormColorsList" id="cpFormColorsList">
+                        <option value="0">Active colors</option>
+                        <option value="1">Archived colors</option>
+                        <option value="2">All colors</option>
+                    </select>
+                    <div class="cpListTitle">There {{(isThereMoreThanOneColor?'are':'is') + ((numberOfColors<10)?' 0':' ') + numberOfColors + ' color'+(isThereMoreThanOneColor?'s':'')}}  </div>
+                    <button id="cpFormDropButton" name="cpFormDropButton" @click.prevent="cpDropColors()">Drop all</button>
+                </div>
+                <hr style="width: 100%">
+                <ul>
+                    <li v-for="(item, index) in getColors" @mousedown="onColorClicking(index, true)" @mouseup="cpLoadColor(index)">
+                        <div class="cpListColorPreview" v-bind:style="{backgroundColor: item.rgba}" v-bind:class="[{onColorItemClick: item.clicking}]"></div>
+                        <div class="cpListColorCode" v-html="item.hexa"></div>
+                    </li>
+                </ul>
+            </template>
+            <div class="cpListEmpty" v-else>No colors found <br> <a href="#">Add new color</a></div>
+        </div>
+    </div>
+
+
+    <script type="application/ecmascript" src="../node_modules/vue/dist/vue.min.js"></script>
+    <script type="application/ecmascript" src="./color-picker.js"></script>
+</body>
+</html>
