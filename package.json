@@ -7,7 +7,7 @@
   "author": "Junior Essono <junioressono@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.21",
     "vue": "^2.6.11",
     "vue-resource": "^1.5.1"
   }
